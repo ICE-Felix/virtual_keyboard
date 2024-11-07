@@ -4,26 +4,30 @@ import 'package:virtual_keyboard/src/features/virtual_keyboard/models/virtual_ke
 import 'package:virtual_keyboard/src/features/virtual_keyboard/utils/virtual_keyboard_action_handler.dart';
 import 'package:virtual_keyboard/src/features/virtual_keyboard/widgets/keyboard_key_widget.dart';
 
-class VirtualKeyboardUtils {
-  static List<Widget> getKeyboardRowElements({
-    required List<VirtualKeyboardKey> keys,
-    required VirtualKeyboardController virtualKeyboardController,
-    int maxKeys = 10,
-  }) {
-    if (keys.length > maxKeys) {
-      debugPrint('Too many keys were provided for this row');
-      return [];
-    }
+class VirtualKeyboardRowWidget extends StatelessWidget {
+  List<VirtualKeyboardKey> keys;
+  VirtualKeyboardController virtualKeyboardController;
+  int maxKeys = 10;
 
-    final paddingFlex = ((maxKeys - keys.length) ~/ 2) * 2;
-    final hasExtraPadding = (maxKeys - keys.length).isOdd;
+  VirtualKeyboardRowWidget({
+    super.key,
+    required this.keys,
+    required this.virtualKeyboardController,
+    this.maxKeys = 10,
+  })  : assert(maxKeys > 0, 'Max keys needs to be bigger then 0'),
+        assert(keys.isNotEmpty, 'Provide keys to display'),
+        assert(
+            keys.length <= maxKeys, 'Too many keys were provided for this row');
 
-    return [
-      // Left padding
-      Expanded(flex: paddingFlex, child: Container()),
-      if (hasExtraPadding) Expanded(flex: 1, child: Container()),
+  int get _paddingFlex => ((maxKeys - keys.length) ~/ 2) * 2;
 
-      // Keys with conditional padding
+  bool get _hasExtraPadding => (maxKeys - keys.length).isOdd;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(children: [
+      Expanded(flex: _paddingFlex, child: Container()),
+      if (_hasExtraPadding) Expanded(flex: 1, child: Container()),
       ...List<Widget>.generate(keys.length, (i) {
         final isLastKey = i == keys.length - 1;
         return Expanded(
@@ -33,8 +37,7 @@ class VirtualKeyboardUtils {
             child: KeyboardKeyWidget(
               virtualKeyboardController: virtualKeyboardController,
               keyboardKey: keys[i],
-              onTap: () => VirtualKeyboardActionHandler.handleKeyTap(
-                virtualKeyboardController,
+              onTap: () => virtualKeyboardController.handleKeyTap(
                 keys[i],
               ),
               // onDoubleTap: () =>
@@ -46,10 +49,8 @@ class VirtualKeyboardUtils {
           ),
         );
       }),
-
-      // Right padding
-      if (hasExtraPadding) Expanded(flex: 1, child: Container()),
-      Expanded(flex: paddingFlex, child: Container()),
-    ];
+      if (_hasExtraPadding) Expanded(flex: 1, child: Container()),
+      Expanded(flex: _paddingFlex, child: Container()),
+    ]);
   }
 }

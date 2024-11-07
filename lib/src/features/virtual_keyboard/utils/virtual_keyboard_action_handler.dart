@@ -2,33 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:virtual_keyboard/src/features/virtual_keyboard/controllers/virtual_keyboard_controller.dart';
 import 'package:virtual_keyboard/src/features/virtual_keyboard/models/virtual_keyboard_key.dart';
 
-class VirtualKeyboardActionHandler {
-  static void handleKeyTap(
-    VirtualKeyboardController controller,
+extension VirtualKeyboardActionHandler on VirtualKeyboardController {
+  void handleKeyTap(
     VirtualKeyboardKey key,
   ) {
     switch (key) {
       case VirtualKeyboardKey.backspace:
-        _handleBackspace(controller);
+        _handleBackspace();
+        break;
+      case VirtualKeyboardKey.numericKey:
+        changeKeyboard();
         break;
       case VirtualKeyboardKey.shift:
-        controller.toggleShift();
+        toggleShift();
         break;
       case VirtualKeyboardKey.caps:
-        controller.toggleCaps();
+        toggleCaps();
         break;
       case VirtualKeyboardKey.enter:
-        _handleEnter(controller);
+        _handleEnter();
         break;
       default:
-        _insertText(controller, controller.getFormattedKeyValue(key.value));
-        controller.resetShift();
+        _insertText(getFormattedKeyValue(key.value));
+        resetShift();
     }
   }
 
-  static void _handleBackspace(VirtualKeyboardController controller) {
-    final text = controller.textEditingController.text;
-    final selection = controller.textEditingController.selection;
+  void _handleBackspace() {
+    final text = textEditingController.text;
+    final selection = textEditingController.selection;
     String newText = text;
     int cursorPosition = selection.start;
 
@@ -41,41 +43,39 @@ class VirtualKeyboardActionHandler {
       cursorPosition = selection.start - 1;
     }
 
-    _updateTextController(controller, newText, cursorPosition);
+    _updateTextController(newText, cursorPosition);
   }
 
-  static void _handleEnter(VirtualKeyboardController controller) {
+  void _handleEnter() {
     // Enter key action here
   }
 
-  static void _insertText(VirtualKeyboardController controller, String value) {
-    final text = controller.textEditingController.text;
-    final selection = controller.textEditingController.selection;
+  void _insertText(String value) {
+    final text = textEditingController.text;
+    final selection = textEditingController.selection;
     final newText = text.replaceRange(selection.start, selection.end, value);
     final cursorPosition = selection.start + value.length;
 
-    _updateTextController(controller, newText, cursorPosition);
+    _updateTextController(newText, cursorPosition);
   }
 
-  static void _updateTextController(
-    VirtualKeyboardController controller,
+  void _updateTextController(
     String text,
     int cursorPosition,
   ) {
-    controller.textEditingController.value = TextEditingValue(
+    textEditingController.value = TextEditingValue(
       text: text,
       selection:
           TextSelection.collapsed(offset: cursorPosition.clamp(0, text.length)),
     );
 
-    if (controller.scrollController != null) {
+    if (scrollController != null) {
       Future.delayed(
         const Duration(
           milliseconds: 5,
         ),
         () {
-          controller.scrollController!
-              .jumpTo(controller.scrollController!.position.maxScrollExtent);
+          scrollController!.jumpTo(scrollController!.position.maxScrollExtent);
         },
       );
     }

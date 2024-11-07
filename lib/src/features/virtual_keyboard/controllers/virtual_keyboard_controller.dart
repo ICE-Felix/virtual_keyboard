@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:virtual_keyboard/virtual_keyboard.dart';
 
 class VirtualKeyboardController extends ChangeNotifier {
   bool _isShiftPressed = false;
   bool _isCapsOn = false;
+  VirtualKeyboardType _keyboardType = VirtualKeyboardType.text;
+
+  List<List<VirtualKeyboardKey>> get keys => switch (_keyboardType) {
+        VirtualKeyboardType.text => VirtualKeyboardKey.textKeyboardKeys,
+        VirtualKeyboardType.numeric => VirtualKeyboardKey.numericKeyboardKeys,
+      };
+
   final TextEditingController textEditingController;
   final ScrollController? scrollController;
 
@@ -12,11 +20,24 @@ class VirtualKeyboardController extends ChangeNotifier {
   });
 
   bool get isShiftPressed => _isShiftPressed;
+
   bool get isCapsOn => _isCapsOn;
 
   void toggleShift() {
     _isShiftPressed = !_isShiftPressed;
     _isCapsOn = false;
+    notifyListeners();
+  }
+
+  void changeKeyboard() {
+    switch (_keyboardType) {
+      case VirtualKeyboardType.text:
+        _keyboardType = VirtualKeyboardType.numeric;
+        break;
+      case VirtualKeyboardType.numeric:
+        _keyboardType = VirtualKeyboardType.text;
+    }
+
     notifyListeners();
   }
 
