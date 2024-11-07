@@ -33,7 +33,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   TextEditingController _textEditingController = TextEditingController();
+  TextEditingController _textEditingController2 = TextEditingController();
   ScrollController _scrollController = ScrollController();
+  ScrollController _scrollController2 = ScrollController();
   OverlayEntry? _overlayEntry;
 
   @override
@@ -51,70 +53,71 @@ class _MyHomePageState extends State<MyHomePage> {
         //   ),
         // ),
         body: Builder(builder: (contextBuilder) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                SafeArea(
-                  child: SizedBox(
-                    width: 300,
-                    child: TextFormField(
-                      scrollController: _scrollController,
-                      controller: _textEditingController,
-                      keyboardType: TextInputType.none,
-                      onTap: () {
-                        _overlayEntry?.remove();
-                        _overlayEntry = OverlayEntry(
-                          builder: (context) {
-                            return Localizations.override(
-                              // Make sure to inject the same locale the math field uses in order
-                              // to match the decimal separators.
-                              context: context,
-                              locale: Localizations.localeOf(contextBuilder),
-                              child: VirtualKeyboard(
-                                scrollController: _scrollController,
-                                textEditingController: _textEditingController,
-                                // Note that we need to pass the insets state like this because the
-                                // overlay context does not have the ancestor state.
-                                insetsState:
-                                    KeyboardViewInsetsState.of(contextBuilder),
-                              ),
-                            );
-                          },
-                        );
-
-                        Overlay.of(context).insert(_overlayEntry!);
-                      },
+          return VirtualKeyboardFocusManager(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  SafeArea(
+                    child: SizedBox(
+                      width: 300,
+                      child: VirtualKeyboardFocusable(
+                        textEditingController: _textEditingController,
+                        scrollController: _scrollController,
+                        builder: (focusNode) {
+                          return TextFormField(
+                              focusNode: focusNode,
+                              scrollController: _scrollController,
+                              controller: _textEditingController,
+                              keyboardType: TextInputType.none);
+                        },
+                      ),
                     ),
                   ),
-                ),
-                InkWell(
-                  onTap: () {},
-                  // onTap: () {
-                  //   Scaffold.of(context).showBottomSheet(
-                  //     (context) {
-                  //       return TextFieldTapRegion(
-                  //         child: VirtualKeyboard(
-                  //           textEditingController: _textEditingController,
-                  //           scrollController: _scrollController,
-                  //         ),
-                  //       );
-                  //     },
-                  //   );
-                  // },
-                  child: Container(
-                    height: 50,
-                    width: 50,
-                    color: Colors.red,
+                  SafeArea(
+                    child: SizedBox(
+                      width: 300,
+                      child: VirtualKeyboardFocusable(
+                        textEditingController: _textEditingController2,
+                        scrollController: _scrollController2,
+                        builder: (focusNode) {
+                          return TextFormField(
+                              focusNode: focusNode,
+                              scrollController: _scrollController2,
+                              controller: _textEditingController2,
+                              keyboardType: TextInputType.none);
+                        },
+                      ),
+                    ),
                   ),
-                ),
-                // TextFieldTapRegion(
-                //   child: VirtualKeyboard(
-                //     textEditingController: _textEditingController,
-                //     scrollController: _scrollController,
-                //   ),
-                // ),
-              ],
+                  InkWell(
+                    onTap: () {},
+                    // onTap: () {
+                    //   Scaffold.of(context).showBottomSheet(
+                    //     (context) {
+                    //       return TextFieldTapRegion(
+                    //         child: VirtualKeyboard(
+                    //           textEditingController: _textEditingController,
+                    //           scrollController: _scrollController,
+                    //         ),
+                    //       );
+                    //     },
+                    //   );
+                    // },
+                    child: Container(
+                      height: 50,
+                      width: 50,
+                      color: Colors.red,
+                    ),
+                  ),
+                  // TextFieldTapRegion(
+                  //   child: VirtualKeyboard(
+                  //     textEditingController: _textEditingController,
+                  //     scrollController: _scrollController,
+                  //   ),
+                  // ),
+                ],
+              ),
             ),
           );
         }),
