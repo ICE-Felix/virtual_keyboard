@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:virtual_keyboard/src/features/virtual_keyboard/controllers/virtual_keyboard_configuration_controller.dart';
 import 'package:virtual_keyboard/src/features/virtual_keyboard/widgets/virtual_keyboard_focusable.dart';
 import 'package:virtual_keyboard/virtual_keyboard.dart';
-
+// Known BUG
+// have multiple text inputs
+// select one
+// press tab on physical keyboard
+// virtual keyboard is writing in the first text input
 class VirtualKeyboardFocusManager extends StatefulWidget {
   const VirtualKeyboardFocusManager({
     super.key,
