@@ -39,22 +39,31 @@ class _VirtualKeyboardState extends State<VirtualKeyboard> {
   }
 
   void _onConfigurationChanged() {
-    virtualKeyboardController = VirtualKeyboardController(
-      textEditingController:
-          widget.configurationController.textEditingController,
-      scrollController: widget.configurationController.scrollController,
-    );
+    if (mounted) {
+      setState(() {
+        virtualKeyboardController = VirtualKeyboardController(
+          textEditingController:
+              widget.configurationController.textEditingController,
+          scrollController: widget.configurationController.scrollController,
+        );
+      });
+    }
   }
 
   @override
   void didUpdateWidget(covariant VirtualKeyboard oldWidget) {
-    if (oldWidget.configurationController != widget.configurationController) {
+    if (oldWidget.configurationController.textEditingController !=
+            widget.configurationController.textEditingController ||
+        oldWidget.configurationController != widget.configurationController) {
       // oldWidget.configurationController.removeListener(_onConfigurationChanged);
-      virtualKeyboardController = VirtualKeyboardController(
-        textEditingController:
-            widget.configurationController.textEditingController,
-        scrollController: widget.configurationController.scrollController,
-      );
+      virtualKeyboardController.dispose();
+      if (mounted) {
+        virtualKeyboardController = VirtualKeyboardController(
+          textEditingController:
+              widget.configurationController.textEditingController,
+          scrollController: widget.configurationController.scrollController,
+        );
+      }
     }
     super.didUpdateWidget(oldWidget);
   }
