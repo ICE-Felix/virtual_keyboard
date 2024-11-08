@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:virtual_keyboard/src/features/virtual_keyboard/controllers/virtual_keyboard_controller.dart';
 import 'package:virtual_keyboard/src/features/virtual_keyboard/models/virtual_keyboard_key.dart';
+import 'package:virtual_keyboard/src/features/virtual_keyboard/style/virtual_keyboard_style.dart';
 
 class KeyboardKeyWidget extends StatefulWidget {
   const KeyboardKeyWidget({
@@ -9,9 +10,11 @@ class KeyboardKeyWidget extends StatefulWidget {
     required this.virtualKeyboardController,
     required this.onTap,
     this.onDoubleTap,
+    required this.style,
   });
 
   final VirtualKeyboardKey keyboardKey;
+  final VirtualKeyboardStyle style;
   final VirtualKeyboardController virtualKeyboardController;
   final void Function() onTap;
   final void Function()? onDoubleTap;
@@ -31,7 +34,8 @@ class _KeyboardKeyWidgetState extends State<KeyboardKeyWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
       onTap: widget.onTap,
       onTapDown: (details) {
         setState(() {
@@ -61,26 +65,19 @@ class _KeyboardKeyWidgetState extends State<KeyboardKeyWidget> {
         },
         child: AnimatedContainer(
           height: double.maxFinite,
-          width: double.maxFinite,
-          decoration: BoxDecoration(
+          decoration: widget.style.keyDecorations?.copyWith(
             color: isPressed
-                ? Colors.grey[500]
+                ? widget.style.keyPressedColor
                 : isHover
-                    ? Colors.grey[400]
-                    : Colors.grey[200],
-            borderRadius: BorderRadius.circular(4),
+                    ? widget.style.keyHoverColor
+                    : widget.style.keyColor,
           ),
-          padding: const EdgeInsets.all(8),
           duration: const Duration(milliseconds: 100),
           child: Center(
             child: Text(
-              widget.virtualKeyboardController
-                  .getFormattedDisplayValue(widget.keyboardKey.displayValue),
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+                widget.virtualKeyboardController
+                    .getFormattedDisplayValue(widget.keyboardKey.displayValue),
+                style: widget.style.keysTextStyle),
           ),
         ),
       ),
