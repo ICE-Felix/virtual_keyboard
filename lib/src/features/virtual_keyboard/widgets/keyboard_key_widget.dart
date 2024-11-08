@@ -27,12 +27,6 @@ class _KeyboardKeyWidgetState extends State<KeyboardKeyWidget> {
   @override
   void initState() {
     super.initState();
-    widget.virtualKeyboardController.addListener(
-      () {
-        // Maybe not the best mode to notify?
-        setState(() {});
-      },
-    );
   }
 
   @override
