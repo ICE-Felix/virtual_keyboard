@@ -78,6 +78,24 @@ class _MyHomePageState extends State<MyHomePage> {
                                 // overlay context does not have the ancestor state.
                                 insetsState:
                                     KeyboardViewInsetsState.of(contextBuilder),
+                                // decorations: VirtualKeyboardStyle(
+                                //     // keyDecorations: BoxDecoration(
+                                //     //   border: Border.all(
+                                //     //     color: Colors.black,
+                                //     //     width: 1,
+                                //     //   ),
+                                //     //   borderRadius: BorderRadius.circular(10),
+                                //     //   color: Colors.white,
+                                //     // ),
+                                //     // keyboardDecorations: BoxDecoration(
+                                //     //   border: Border.all(
+                                //     //     color: Colors.black,
+                                //     //     width: 1,
+                                //     //   ),
+                                //     //   borderRadius: BorderRadius.circular(10),
+                                //     //   color: Colors.white,
+                                //     // ),
+                                //     ),
                               ),
                             );
                           },
@@ -88,32 +106,36 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
-                InkWell(
-                  onTap: () {},
-                  // onTap: () {
-                  //   Scaffold.of(context).showBottomSheet(
-                  //     (context) {
-                  //       return TextFieldTapRegion(
-                  //         child: VirtualKeyboard(
-                  //           textEditingController: _textEditingController,
-                  //           scrollController: _scrollController,
-                  //         ),
-                  //       );
-                  //     },
-                  //   );
-                  // },
-                  child: Container(
-                    height: 50,
-                    width: 50,
-                    color: Colors.red,
-                  ),
-                ),
-                // TextFieldTapRegion(
-                //   child: VirtualKeyboard(
-                //     textEditingController: _textEditingController,
-                //     scrollController: _scrollController,
+                Container(
+                  height: 50,
+                  width: 50,
+                )
+                // InkWell(
+                //   onTap: () {},
+                //   // onTap: () {
+                //   //   Scaffold.of(context).showBottomSheet(
+                //   //     (context) {
+                //   //       return TextFieldTapRegion(
+                //   //         child: VirtualKeyboard(
+                //   //           textEditingController: _textEditingController,
+                //   //           scrollController: _scrollController,
+                //   //         ),
+                //   //       );
+                //   //     },
+                //   //   );
+                //   // },
+                //   child: Container(
+                //     height: 50,
+                //     width: 50,
+                //     color: Colors.red,
                 //   ),
                 // ),
+                // // TextFieldTapRegion(
+                // //   child: VirtualKeyboard(
+                // //     textEditingController: _textEditingController,
+                // //     scrollController: _scrollController,
+                // //   ),
+                // // ),
               ],
             ),
           );
