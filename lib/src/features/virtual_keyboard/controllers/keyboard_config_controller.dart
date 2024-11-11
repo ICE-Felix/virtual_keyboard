@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class VirtualKeyboardConfigurationController extends ChangeNotifier {
+class KeyboardConfigController extends ChangeNotifier {
   TextEditingController textEditingController;
   ScrollController scrollController;
 
-  VirtualKeyboardConfigurationController({
+  KeyboardConfigController({
     required this.textEditingController,
     required this.scrollController,
   });
@@ -18,4 +18,3 @@ class VirtualKeyboardConfigurationController extends ChangeNotifier {
     notifyListeners();
   }
 }
-  

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:virtual_keyboard/src/features/virtual_keyboard/controllers/virtual_keyboard_configuration_controller.dart';
+import 'package:virtual_keyboard/src/features/virtual_keyboard/controllers/keyboard_config_controller.dart';
 import 'package:virtual_keyboard/src/features/virtual_keyboard/controllers/virtual_keyboard_controller.dart';
 import 'package:virtual_keyboard/src/features/virtual_keyboard/view/keyboard_view_insets.dart';
 import 'package:virtual_keyboard/src/features/virtual_keyboard/widgets/keyboard_body.dart';
@@ -15,7 +15,7 @@ class VirtualKeyboard extends StatefulWidget {
             'The KeyboardViewInsetsState does not exist. Most probably you forgot to initiate KeyboardViewInsets, or the context is from the upper widget tree and does not contain the KeyboardViewInsets widget.');
 
   /// The text controller to get the input text also used for the initial text
-  final VirtualKeyboardConfigurationController configurationController;
+  final KeyboardConfigController configurationController;
   // final TextEditingController textEditingController;
   // final ScrollController scrollController;
   final KeyboardViewInsetsState? insetsState;

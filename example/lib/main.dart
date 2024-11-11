@@ -46,12 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: Text(widget.title),
         ),
-        // bottomSheet: TextFieldTapRegion(
-        //   child: VirtualKeyboard(
-        //     textEditingController: _textEditingController,
-        //     scrollController: _scrollController,
-        //   ),
-        // ),
+
         body: Builder(builder: (contextBuilder) {
           return VirtualKeyboardFocusManager(
             child: Center(

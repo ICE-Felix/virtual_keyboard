@@ -1,7 +1,7 @@
 library virtual_keyboard;
 
 export 'src/features/virtual_keyboard/controllers/virtual_keyboard_controller.dart';
-export 'src/features/virtual_keyboard/controllers/virtual_keyboard_configuration_controller.dart';
+export 'src/features/virtual_keyboard/controllers/keyboard_config_controller.dart';
 export 'src/features/virtual_keyboard/models/virtual_keyboard_key.dart';
 export 'src/features/virtual_keyboard/utils/virtual_keyboard_focus_node.dart';
 export 'src/features/virtual_keyboard/utils/virtual_keyboard_action_handler.dart';
