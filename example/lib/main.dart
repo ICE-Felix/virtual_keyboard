@@ -78,24 +78,24 @@ class _MyHomePageState extends State<MyHomePage> {
                                 // overlay context does not have the ancestor state.
                                 insetsState:
                                     KeyboardViewInsetsState.of(contextBuilder),
-                                decorations: VirtualKeyboardStyle(
-                                  keyDecorations: BoxDecoration(
-                                    border: Border.all(
-                                      color: Colors.black,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.white,
-                                  ),
-                                  keyboardDecorations: BoxDecoration(
-                                    border: Border.all(
-                                      color: Colors.black,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.white,
-                                  ),
-                                ),
+                                // decorations: VirtualKeyboardStyle(
+                                //     // keyDecorations: BoxDecoration(
+                                //     //   border: Border.all(
+                                //     //     color: Colors.black,
+                                //     //     width: 1,
+                                //     //   ),
+                                //     //   borderRadius: BorderRadius.circular(10),
+                                //     //   color: Colors.white,
+                                //     // ),
+                                //     // keyboardDecorations: BoxDecoration(
+                                //     //   border: Border.all(
+                                //     //     color: Colors.black,
+                                //     //     width: 1,
+                                //     //   ),
+                                //     //   borderRadius: BorderRadius.circular(10),
+                                //     //   color: Colors.white,
+                                //     // ),
+                                //     ),
                               ),
                             );
                           },

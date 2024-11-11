@@ -65,7 +65,8 @@ class _KeyboardKeyWidgetState extends State<KeyboardKeyWidget> {
         },
         child: AnimatedContainer(
           height: double.maxFinite,
-          decoration: widget.style.keyDecorations?.copyWith(
+          decoration:
+              (widget.style.keyDecorations ?? const BoxDecoration()).copyWith(
             color: isPressed
                 ? widget.style.keyPressedColor
                 : isHover
