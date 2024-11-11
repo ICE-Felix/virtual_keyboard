@@ -8,7 +8,6 @@ class VirtualKeyboardStyle {
   final Color? _keyHoverColor;
   final BoxDecoration? _keyDecorations;
   final BoxDecoration? _keyboardDecorations;
-  final EdgeInsets? _keyPadding;
   late BuildContext _context;
 
   VirtualKeyboardStyle({
@@ -19,15 +18,13 @@ class VirtualKeyboardStyle {
     Color? keyHoverColor,
     BoxDecoration? keyDecorations,
     BoxDecoration? keyboardDecorations,
-    EdgeInsets? keyPadding,
   })  : _backgroundColor = backgroundColor,
         _keysTextStyle = keysTextStyle,
         _keyColor = keyColor,
         _keyPressedColor = keyPressedColor,
         _keyHoverColor = keyHoverColor,
         _keyDecorations = keyDecorations,
-        _keyboardDecorations = keyboardDecorations,
-        _keyPadding = keyPadding;
+        _keyboardDecorations = keyboardDecorations;
 
   void setBuildContext(BuildContext context) {
     _context = context;
@@ -50,6 +47,4 @@ class VirtualKeyboardStyle {
   BoxDecoration? get keyDecorations => _keyDecorations;
 
   BoxDecoration? get keyboardDecorations => _keyboardDecorations;
-
-  EdgeInsets get keyPadding => _keyPadding ?? const EdgeInsets.all(8);
 }

@@ -10,13 +10,15 @@ class VirtualKeyboardRowWidget extends StatelessWidget {
   final VirtualKeyboardController virtualKeyboardController;
   final int maxKeys;
   final VirtualKeyboardStyle style;
+  final EdgeInsets padding;
 
   VirtualKeyboardRowWidget({
     super.key,
     required this.keys,
     required this.virtualKeyboardController,
     required this.style,
-    this.maxKeys = 10,
+    required this.padding,
+    this.maxKeys = 11,
   })  : assert(maxKeys > 0, 'Max keys needs to be bigger then 0'),
         assert(keys.isNotEmpty, 'Provide keys to display'),
         assert(
@@ -29,17 +31,13 @@ class VirtualKeyboardRowWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(children: [
+      Expanded(flex: _paddingFlex, child: Container()),
       if (_hasExtraPadding) Expanded(flex: 1, child: Container()),
       ...List<Widget>.generate(keys.length, (i) {
-        final isLastKey = i == keys.length - 1;
         return Expanded(
           flex: 2,
           child: Padding(
-            padding: style.keyPadding != null
-                ? (isLastKey
-                    ? style.keyPadding!.copyWith(right: 0)
-                    : style.keyPadding!)
-                : EdgeInsets.only(right: isLastKey ? 0 : 10),
+            padding: padding,
             child: KeyboardKeyWidget(
               style: style,
               virtualKeyboardController: virtualKeyboardController,
@@ -57,6 +55,7 @@ class VirtualKeyboardRowWidget extends StatelessWidget {
         );
       }),
       if (_hasExtraPadding) Expanded(flex: 1, child: Container()),
+      Expanded(flex: _paddingFlex, child: Container()),
     ]);
   }
 }
