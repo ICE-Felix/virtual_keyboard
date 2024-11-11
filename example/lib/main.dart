@@ -36,7 +36,6 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController _textEditingController2 = TextEditingController();
   ScrollController _scrollController = ScrollController();
   ScrollController _scrollController2 = ScrollController();
-  OverlayEntry? _overlayEntry;
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: Text(widget.title),
         ),
+
 
         body: Builder(builder: (contextBuilder) {
           return VirtualKeyboardFocusManager(
