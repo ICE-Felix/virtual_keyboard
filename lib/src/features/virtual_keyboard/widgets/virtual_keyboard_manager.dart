@@ -1,24 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:virtual_keyboard/src/features/virtual_keyboard/controllers/keyboard_config_controller.dart';
+import 'package:virtual_keyboard/src/features/virtual_keyboard/style/virtual_keyboard_style.dart';
 import 'package:virtual_keyboard/src/features/virtual_keyboard/utils/virtual_keyboard_focus_node.dart';
 import 'package:virtual_keyboard/src/features/virtual_keyboard/view/keyboard_view_insets.dart';
 import 'package:virtual_keyboard/src/features/virtual_keyboard/widgets/virtual_keyboard.dart';
 
-class VirtualKeyboardFocusManager extends StatefulWidget {
-  const VirtualKeyboardFocusManager({
+class VirtualKeyboardManager extends StatefulWidget {
+  const VirtualKeyboardManager({
     super.key,
     required this.child,
+    this.decorations,
+    this.maxKeys = 10,
+    this.maxHeight,
+    this.keyPadding = const EdgeInsets.all(8),
+    this.keyboardPadding = const EdgeInsets.symmetric(horizontal: 8),
   });
 
   final Widget child;
+  final VirtualKeyboardStyle? decorations;
+  final int maxKeys;
+  final double? maxHeight;
+  final EdgeInsets keyPadding;
+  final EdgeInsets keyboardPadding;
 
   @override
-  State<VirtualKeyboardFocusManager> createState() =>
-      _VirtualKeyboardFocusManagerState();
+  State<VirtualKeyboardManager> createState() => _VirtualKeyboardManagerState();
 }
 
-class _VirtualKeyboardFocusManagerState
-    extends State<VirtualKeyboardFocusManager> {
+class _VirtualKeyboardManagerState extends State<VirtualKeyboardManager> {
   KeyboardConfigController? _keyboardController;
   OverlayEntry? _overlayEntry;
 
@@ -40,7 +49,6 @@ class _VirtualKeyboardFocusManagerState
   void _onFocusChanged() {
     if (mounted) {
       if (FocusManager.instance.primaryFocus is VirtualKeyboardFocusNode) {
-
         VirtualKeyboardFocusNode virtualKeyboardFocusedNode =
             FocusManager.instance.primaryFocus! as VirtualKeyboardFocusNode;
         if (_keyboardController == null) {
@@ -77,6 +85,11 @@ class _VirtualKeyboardFocusManagerState
           child: VirtualKeyboard(
             configurationController: _keyboardController!,
             insetsState: KeyboardViewInsetsState.of(parentContext),
+            decorations: widget.decorations,
+            maxKeys: widget.maxKeys,
+            maxHeight: widget.maxHeight,
+            keyPadding: widget.keyPadding,
+            keyboardPadding: widget.keyboardPadding,
           ),
         );
       },

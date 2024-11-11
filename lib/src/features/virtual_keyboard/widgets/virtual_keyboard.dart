@@ -81,7 +81,6 @@ class _VirtualKeyboardState extends State<VirtualKeyboard> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.insetsState);
     final curvedSlideAnimation = CurvedAnimation(
       parent: AlwaysStoppedAnimation(1),
       curve: Curves.ease,
@@ -99,9 +98,9 @@ class _VirtualKeyboardState extends State<VirtualKeyboard> {
             right: 0,
             child: Material(
               type: MaterialType.transparency,
-              child: SafeArea(
-                top: false,
-                child: TextFieldTapRegion(
+              child: TextFieldTapRegion(
+                child: SafeArea(
+                  top: false,
                   child: SizedBox(
                     height: widget.maxHeight ??
                         MediaQuery.of(context).size.height * 0.3,
