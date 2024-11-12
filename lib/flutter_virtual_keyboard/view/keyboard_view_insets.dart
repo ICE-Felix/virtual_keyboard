@@ -46,14 +46,13 @@ class KeyboardViewInsetsState extends State<KeyboardViewInsets> {
   @override
   Widget build(BuildContext context) {
     final mediaQueryData = MediaQuery.of(context);
-    final mathKeyboardBottomInset = _bottomInset;
     return KeyboardViewInsetsQuery(
-      bottomInset: mathKeyboardBottomInset,
+      bottomInset: _bottomInset,
       child: MediaQuery(
         data: mediaQueryData.copyWith(
           viewInsets: mediaQueryData.viewInsets.copyWith(
             bottom: max(
-              mathKeyboardBottomInset,
+              _bottomInset,
               // We want to make sure we respect the default MediaQuery bottom
               // inset.
               // Note that we will experience weird behavior when inserting this
