@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:virtual_keyboard/src/features/virtual_keyboard/controllers/keyboard_config_controller.dart';
 import 'package:virtual_keyboard/src/features/virtual_keyboard/controllers/virtual_keyboard_controller.dart';
 import 'package:virtual_keyboard/src/features/virtual_keyboard/style/virtual_keyboard_style.dart';
 import 'package:virtual_keyboard/src/features/virtual_keyboard/view/keyboard_view_insets.dart';
@@ -8,8 +9,7 @@ import 'package:virtual_keyboard/src/features/virtual_keyboard/widgets/virtual_k
 class VirtualKeyboard extends StatefulWidget {
   const VirtualKeyboard({
     super.key,
-    required this.textEditingController,
-    required this.scrollController,
+    required this.configurationController,
     required this.insetsState,
     this.decorations,
     this.maxKeys = 10,
@@ -19,9 +19,7 @@ class VirtualKeyboard extends StatefulWidget {
   }) : assert(insetsState != null,
             'The KeyboardViewInsetsState does not exist. Most probably you forgot to initiate KeyboardViewInsets, or the context is from the upper widget tree and does not contain the KeyboardViewInsets widget.');
 
-  /// The text controller to get the input text also used for the initial text
-  final TextEditingController textEditingController;
-  final ScrollController scrollController;
+  final KeyboardConfigController configurationController;
   final KeyboardViewInsetsState? insetsState;
   final VirtualKeyboardStyle? decorations;
   final int maxKeys;
@@ -41,21 +39,42 @@ class _VirtualKeyboardState extends State<VirtualKeyboard> {
   void initState() {
     super.initState();
     virtualKeyboardController = VirtualKeyboardController(
-      textEditingController: widget.textEditingController,
-      scrollController: widget.scrollController,
+      textEditingController:
+          widget.configurationController.textEditingController,
+      scrollController: widget.configurationController.scrollController,
     );
+
     decorations = (widget.decorations ?? VirtualKeyboardStyle())
       ..setBuildContext(context);
+    widget.configurationController.addListener(_onConfigurationChanged);
+  }
+
+  void _onConfigurationChanged() {
+    if (mounted) {
+      setState(() {
+        virtualKeyboardController = VirtualKeyboardController(
+          textEditingController:
+              widget.configurationController.textEditingController,
+          scrollController: widget.configurationController.scrollController,
+        );
+      });
+    }
   }
 
   @override
   void didUpdateWidget(covariant VirtualKeyboard oldWidget) {
-    if (oldWidget.textEditingController != widget.textEditingController ||
-        oldWidget.scrollController != widget.scrollController) {
-      virtualKeyboardController = VirtualKeyboardController(
-        textEditingController: widget.textEditingController,
-        scrollController: widget.scrollController,
-      );
+    if (oldWidget.configurationController.textEditingController !=
+            widget.configurationController.textEditingController ||
+        oldWidget.configurationController != widget.configurationController) {
+      // oldWidget.configurationController.removeListener(_onConfigurationChanged);
+      virtualKeyboardController.dispose();
+      if (mounted) {
+        virtualKeyboardController = VirtualKeyboardController(
+          textEditingController:
+              widget.configurationController.textEditingController,
+          scrollController: widget.configurationController.scrollController,
+        );
+      }
     }
     super.didUpdateWidget(oldWidget);
   }
@@ -79,42 +98,44 @@ class _VirtualKeyboardState extends State<VirtualKeyboard> {
             right: 0,
             child: Material(
               type: MaterialType.transparency,
-              child: SafeArea(
-                top: false,
-                child: SizedBox(
-                  height: widget.maxHeight ??
-                      MediaQuery.of(context).size.height * 0.3,
-                  child: KeyboardBody(
-                    insetsState: widget.insetsState,
-                    slideAnimation: curvedSlideAnimation,
-                    child: Padding(
-                      padding: widget.keyboardPadding,
-                      child: Container(
-                        decoration: decorations.keyboardDecorations,
-                        child: ConstrainedBox(
-                          constraints: const BoxConstraints(
-                            maxWidth: double.infinity,
-                          ),
-                          child: ListenableBuilder(
-                            listenable: virtualKeyboardController,
-                            builder: (context, child) {
-                              return Column(
-                                children: virtualKeyboardController.keys.map(
-                                  (keys) {
-                                    return Expanded(
-                                      child: VirtualKeyboardRowWidget(
-                                        style: decorations,
-                                        keys: keys,
-                                        padding: widget.keyPadding,
-                                        virtualKeyboardController:
-                                            virtualKeyboardController,
-                                        maxKeys: widget.maxKeys,
-                                      ),
-                                    );
-                                  },
-                                ).toList(),
-                              );
-                            },
+              child: TextFieldTapRegion(
+                child: SafeArea(
+                  top: false,
+                  child: SizedBox(
+                    height: widget.maxHeight ??
+                        MediaQuery.of(context).size.height * 0.3,
+                    child: KeyboardBody(
+                      insetsState: widget.insetsState,
+                      slideAnimation: curvedSlideAnimation,
+                      child: Padding(
+                        padding: widget.keyboardPadding,
+                        child: Container(
+                          decoration: decorations.keyboardDecorations,
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(
+                              maxWidth: double.infinity,
+                            ),
+                            child: ListenableBuilder(
+                              listenable: virtualKeyboardController,
+                              builder: (context, child) {
+                                return Column(
+                                  children: virtualKeyboardController.keys.map(
+                                    (keys) {
+                                      return Expanded(
+                                        child: VirtualKeyboardRowWidget(
+                                          style: decorations,
+                                          keys: keys,
+                                          padding: widget.keyPadding,
+                                          virtualKeyboardController:
+                                              virtualKeyboardController,
+                                          maxKeys: widget.maxKeys,
+                                        ),
+                                      );
+                                    },
+                                  ).toList(),
+                                );
+                              },
+                            ),
                           ),
                         ),
                       ),
