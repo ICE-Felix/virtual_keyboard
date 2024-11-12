@@ -1,10 +1,10 @@
-name: virtual_keyboard
+name: flutter_virtual_keyboard
 description: "A new Flutter project."
 version: 0.0.1
 homepage:
 
 environment:
-  sdk: ^3.5.4
+  sdk: ^3.5.3
   flutter: ">=1.17.0"
 
 dependencies:
