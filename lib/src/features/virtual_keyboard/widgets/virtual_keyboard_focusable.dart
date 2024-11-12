@@ -41,9 +41,5 @@ class _VirtualKeyboardFocusableState extends State<VirtualKeyboardFocusable> {
   @override
   Widget build(BuildContext context) {
     return widget.builder.call(_focusNode);
-    // return Focus(
-    //   focusNode: _focusNode,
-    //   child: widget.child,
-    // );
   }
 }
