@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:virtual_keyboard/virtual_keyboard.dart';
+import 'package:flutter_virtual_keyboard/virtual_keyboard.dart';
 
 void main() {
   runApp(const MyApp());
@@ -48,24 +48,20 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            SafeArea(
-              child: SizedBox(
-                width: 300,
-                child: VirtualKeyboardInput(
-                  inputController: _textEditingController,
-                  scrollController: _scrollController,
-                ),
+            SizedBox(
+              width: 300,
+              child: VirtualKeyboardInput(
+                inputController: _textEditingController,
+                scrollController: _scrollController,
               ),
             ),
-            SafeArea(
-              child: SizedBox(
-                width: 300,
-                child: VirtualKeyboardInput(
-                  inputController: _textEditingController2,
-                  scrollController: _scrollController2,
-                ),
-              ),
-            ),
+            // SizedBox(
+            //   width: 300,
+            //   child: VirtualKeyboardInput(
+            //     inputController: _textEditingController2,
+            //     scrollController: _scrollController2,
+            //   ),
+            // ),
             InkWell(
               onTap: () {},
               child: Container(
