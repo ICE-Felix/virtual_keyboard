@@ -32,106 +32,49 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  TextEditingController _textEditingController = TextEditingController();
-  TextEditingController _textEditingController2 = TextEditingController();
-  ScrollController _scrollController = ScrollController();
-  ScrollController _scrollController2 = ScrollController();
+  final TextEditingController _textEditingController = TextEditingController();
+  final TextEditingController _textEditingController2 = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController2 = ScrollController();
 
   @override
   Widget build(BuildContext context) {
-    return KeyboardViewInsets(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text(widget.title),
+    return VirtualKeyboardScaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            SafeArea(
+              child: SizedBox(
+                width: 300,
+                child: VirtualKeyboardInput(
+                  inputController: _textEditingController,
+                  scrollController: _scrollController,
+                ),
+              ),
+            ),
+            SafeArea(
+              child: SizedBox(
+                width: 300,
+                child: VirtualKeyboardInput(
+                  inputController: _textEditingController2,
+                  scrollController: _scrollController2,
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {},
+              child: Container(
+                height: 50,
+                width: 50,
+              ),
+            ),
+          ],
         ),
-        body: Builder(builder: (contextBuilder) {
-          return VirtualKeyboardManager(
-            decorations: VirtualKeyboardStyle(
-              keyDecorations: BoxDecoration(
-                border: Border.all(
-                  color: Colors.black,
-                  width: 1,
-                ),
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.white,
-              ),
-              keyboardDecorations: BoxDecoration(
-                border: Border.all(
-                  color: Colors.black,
-                  width: 1,
-                ),
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.white,
-              ),
-            ),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  SafeArea(
-                    child: SizedBox(
-                      width: 300,
-                      child: VirtualKeyboardFocusable(
-                        textEditingController: _textEditingController,
-                        scrollController: _scrollController,
-                        builder: (focusNode) {
-                          return TextFormField(
-                              focusNode: focusNode,
-                              scrollController: _scrollController,
-                              controller: _textEditingController,
-                              keyboardType: TextInputType.none);
-                        },
-                      ),
-                    ),
-                  ),
-                  SafeArea(
-                    child: SizedBox(
-                      width: 300,
-                      child: VirtualKeyboardFocusable(
-                        textEditingController: _textEditingController2,
-                        scrollController: _scrollController2,
-                        builder: (focusNode) {
-                          return TextFormField(
-                              focusNode: focusNode,
-                              scrollController: _scrollController2,
-                              controller: _textEditingController2,
-                              keyboardType: TextInputType.none);
-                        },
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    // onTap: () {
-                    //   Scaffold.of(context).showBottomSheet(
-                    //     (context) {
-                    //       return TextFieldTapRegion(
-                    //         child: VirtualKeyboard(
-                    //           textEditingController: _textEditingController,
-                    //           scrollController: _scrollController,
-                    //         ),
-                    //       );
-                    //     },
-                    //   );
-                    // },
-                    child: Container(
-                      height: 50,
-                      width: 50,
-                      color: Colors.red,
-                    ),
-                  ),
-                  // TextFieldTapRegion(
-                  //   child: VirtualKeyboard(
-                  //     textEditingController: _textEditingController,
-                  //     scrollController: _scrollController,
-                  //   ),
-                  // ),
-                ],
-              ),
-            ),
-          );
-        }),
       ),
     );
   }

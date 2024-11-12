@@ -13,3 +13,5 @@ export 'src/features/virtual_keyboard/widgets/virtual_keyboard_manager.dart';
 export 'src/features/virtual_keyboard/widgets/virtual_keyboard_focusable.dart';
 export 'src/features/virtual_keyboard/widgets/virtual_keyboard_row.dart';
 export 'src/features/virtual_keyboard/style/virtual_keyboard_style.dart';
+export 'src/features/virtual_keyboard/widgets/virtual_keyboard_scaffold.dart';
+export 'src/features/virtual_keyboard/widgets/virtual_keyboard_input.dart';
