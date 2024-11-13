@@ -1,6 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_virtual_keyboard/virtual_keyboard.dart';
 
+/// A stateful widget that represents a virtual keyboard.
+///
+/// The [VirtualKeyboard] widget provides a customizable virtual keyboard interface
+/// that can be used in Flutter applications. It allows users to input text using
+/// an on-screen keyboard, which can be useful for devices without a physical
+/// keyboard or in scenarios where a virtual keyboard is more appropriate.
+///
+/// The widget is configured using the [KeyboardConfigController] and
+/// [KeyboardViewInsetsState] parameters, which control the behavior and appearance
+/// of the keyboard. The [decorations] parameter can be used to customize the
+/// appearance of the keyboard keys.
+///
+/// The [maxKeys] parameter sets the maximum number of keys that can be displayed
+/// on the keyboard, while the [maxHeight] parameter sets the maximum height of
+/// the keyboard. The [keyPadding] and [keyboardPadding] parameters control the
+/// padding around the keys and the keyboard, respectively.
 class VirtualKeyboard extends StatefulWidget {
   const VirtualKeyboard({
     super.key,

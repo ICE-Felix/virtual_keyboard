@@ -90,9 +90,6 @@ class VirtualKeyboardInput extends StatelessWidget {
   /// Whether the text can be changed.
   final bool readOnly;
 
-  /// Configuration of toolbar options.
-  final ToolbarOptions? toolbarOptions;
-
   /// Whether to show cursor.
   final bool? showCursor;
 
@@ -184,7 +181,6 @@ class VirtualKeyboardInput extends StatelessWidget {
     this.textAlignVertical,
     this.textDirection,
     this.readOnly = false,
-    this.toolbarOptions,
     this.showCursor,
     this.autofocus = false,
     this.obscureText = false,
@@ -242,7 +238,6 @@ class VirtualKeyboardInput extends StatelessWidget {
           textAlignVertical: textAlignVertical,
           textDirection: textDirection,
           readOnly: readOnly,
-          toolbarOptions: toolbarOptions,
           showCursor: showCursor,
           autofocus: autofocus,
           obscureText: obscureText,
