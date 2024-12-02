@@ -47,6 +47,10 @@ enum VirtualKeyboardKey {
   enter(displayValue: '⏎'),
   smileyFace(value: ':)'),
   numericKey(value: '?123'),
+  at(
+    value: '@',
+    displayValue: '@',
+  ),
   ;
 
   const VirtualKeyboardKey({
@@ -65,7 +69,7 @@ enum VirtualKeyboardKey {
         [q, w, e, r, t, y, u, i, o, p],
         [a, s, d, f, g, h, j, k, l],
         [caps, shift, z, x, c, v, b, n, m, backspace],
-        [comma, spacebar, period, smileyFace, numericKey],
+        [comma, spacebar, period, at, numericKey],
       ];
 
   static List<List<VirtualKeyboardKey>> get numericKeyboardKeys => [
