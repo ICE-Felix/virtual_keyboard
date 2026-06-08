@@ -93,7 +93,7 @@ class _VirtualKeyboardState extends State<VirtualKeyboard> {
   @override
   Widget build(BuildContext context) {
     final curvedSlideAnimation = CurvedAnimation(
-      parent: AlwaysStoppedAnimation(1),
+      parent: const AlwaysStoppedAnimation(1),
       curve: Curves.ease,
     );
     return SlideTransition(

@@ -4,11 +4,11 @@ import 'package:flutter_virtual_keyboard/virtual_keyboard.dart';
 
 class KeyboardBody extends StatefulWidget {
   const KeyboardBody({
-    Key? key,
+    super.key,
     this.insetsState,
     this.slideAnimation,
     required this.child,
-  }) : super(key: key);
+  });
 
   final KeyboardViewInsetsState? insetsState;
 
@@ -21,7 +21,7 @@ class KeyboardBody extends StatefulWidget {
   final Widget child;
 
   @override
-  _KeyboardBodyState createState() => _KeyboardBodyState();
+  State<KeyboardBody> createState() => _KeyboardBodyState();
 }
 
 class _KeyboardBodyState extends State<KeyboardBody> {

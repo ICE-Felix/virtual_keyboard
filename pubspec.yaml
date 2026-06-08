@@ -1,6 +1,6 @@
 name: flutter_virtual_keyboard
 description: "This package offers a customizable virtual keyboard, enabling easy integration for typing functionality in apps."
-version: 0.0.3
+version: 0.1.0
 repository: "https://github.com/ICE-Felix/virtual_keyboard.git"
 
 environment:

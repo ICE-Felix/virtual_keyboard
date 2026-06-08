@@ -32,7 +32,10 @@ class VirtualKeyboardStyle {
 
   ThemeData get _theme => Theme.of(_context);
 
-  Color get backgroundColor => _backgroundColor ?? _theme.dialogBackgroundColor;
+  Color get backgroundColor =>
+      _backgroundColor ??
+      _theme.dialogTheme.backgroundColor ??
+      _theme.colorScheme.surface;
 
   TextStyle get keysTextStyle =>
       _keysTextStyle ?? _theme.textTheme.bodyMedium ?? const TextStyle();

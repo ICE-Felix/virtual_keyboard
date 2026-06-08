@@ -33,9 +33,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController _textEditingController = TextEditingController();
-  final TextEditingController _textEditingController2 = TextEditingController();
   final ScrollController _scrollController = ScrollController();
-  final ScrollController _scrollController2 = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
             // ),
             InkWell(
               onTap: () {},
-              child: Container(
+              child: const SizedBox(
                 height: 50,
                 width: 50,
               ),
